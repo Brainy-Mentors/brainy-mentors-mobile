@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import theme from "../theme";
+import theme from "../../../theme";
 
 export default function IconButton({
   title,
