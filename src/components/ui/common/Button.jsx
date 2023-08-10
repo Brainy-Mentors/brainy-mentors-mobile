@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TextStyled from "./TextStyled";
-import theme from "./theme";
+import theme from "../theme";
 
 export default function Button({
   title,
