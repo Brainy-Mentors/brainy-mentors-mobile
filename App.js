@@ -1,11 +1,5 @@
-import { StyleSheet, View } from "react-native";
+import MainStack from "./src/navigation/MainStack";
 
 export default function App() {
-  return <View style={styles.container}></View>;
+  return <MainStack />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
