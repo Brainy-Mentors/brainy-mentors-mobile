@@ -5,14 +5,14 @@ const theme = {
     primary: "#DBB38E",
     black: "#000",
     backgroundBase: "#2A2A2A",
-    backgrounBaseLith: "#B7B7B7",
+    backgrounBaseLight: "#3D3D3D",
   },
   fontSizes: {
     body: 14,
     subheading: 16,
-    title: 20,
-    big: 24,
-    extraBig: 28,
+    title: 18,
+    big: 22,
+    extraBig: 26,
   },
   fonts: {
     main: "System",
