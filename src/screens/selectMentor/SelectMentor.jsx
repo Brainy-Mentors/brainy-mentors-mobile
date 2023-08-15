@@ -4,7 +4,7 @@ import MentorsList from "../../components/mentorList/MentorList";
 
 export default function SelectMentor({ navigation }) {
   return (
-    <ScreenBase>
+    <ScreenBase complete>
       <MentorsList />
     </ScreenBase>
   );
