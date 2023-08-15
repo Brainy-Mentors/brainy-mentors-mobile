@@ -8,12 +8,15 @@ import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 
 function ChangeMentor() {
-  
-  const {selectedMentor} = useContext(AppContext);
+  const { selectedMentor } = useContext(AppContext);
   const navigation = useNavigation();
 
   const handleChange = () => {
-    navigation.navigate("select-mentor")
+    navigation.navigate("select-mentor");
+  };
+
+  const handleChat = () => {
+    navigation.navigate("chat", {mentor: selectedMentor });
   };
 
   return (
@@ -31,7 +34,10 @@ function ChangeMentor() {
           <Feather name="repeat" style={styles.icon} />
         </TouchableOpacity>
         <View style={styles.containerMentor}>
-          <Image style={styles?.mentorImage} source={selectedMentor?.imageUrl}></Image>
+          <Image
+            style={styles?.mentorImage}
+            source={selectedMentor?.imageUrl}
+          ></Image>
         </View>
       </View>
       <View>
@@ -44,10 +50,10 @@ function ChangeMentor() {
           {selectedMentor.name}
         </TextStyled>
         <TextStyled style={{ textAlign: "center" }}>
-        [ {selectedMentor.specialization} ]
+          [ {selectedMentor.specialization} ]
         </TextStyled>
       </View>
-      <Button primary title={"Chatear"}></Button>
+      <Button primary title={"Chatear"} onPress={handleChat}></Button>
     </View>
   );
 }
