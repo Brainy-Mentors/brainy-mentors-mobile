@@ -4,11 +4,11 @@ import { dataMentors } from "../constants/dataMentors";
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [selectedMentor, setselectedMentor] = useState(dataMentors[0]);
+  const [selectedMentor, setSelectedMentor] = useState(dataMentors[0]);
 
   const contextData = {
     selectedMentor,
-    setselectedMentor,
+    setSelectedMentor,
   };
 
   return (
