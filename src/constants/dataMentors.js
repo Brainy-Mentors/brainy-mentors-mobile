@@ -1,37 +1,48 @@
+import marioL from "../assets/images/mentors/marioL.png";
+import adrianJ from "../assets/images/mentors/adrianJ.png";
+import arnoldB from "../assets/images/mentors/arnoldB.png";
+import isabellaM from "../assets/images/mentors/isabellaM.png";
+import tomR from "../assets/images/mentors/tomR.png";
+
 export const dataMentors = [
   {
-    name: "Juan ProgramaYa",
-    specialization: "Experto en Desarrollo de Software",
+    id: 1,
+    name: "Adrian JS",
+    specialization: "Mentor de Programación",
     shortDescription:
-      "Aprende a programar con Juan. Descubre los secretos del código y conviértete en un mago del desarrollo de software.",
-    imageUrl: "URL_de_la_imagen", // Reemplaza con la URL de la imagen del mentor programador
+      "Aprende a programar como un profesional con Max. Descubre los secretos del código y crea tus propias maravillas digitales.",
+    imageUrl: adrianJ,
   },
   {
-    name: "David PotencialMax",
+    id: 2,
+    name: "Tom Robbins",
     specialization: "Coach de Desarrollo Personal",
     shortDescription:
-      "Desbloquea tu potencial con David. Supera obstáculos y logra tus objetivos personales con su orientación experta.",
-    imageUrl: "URL_de_la_imagen", // Reemplaza con la URL de la imagen del mentor de desarrollo personal
+      "Únete a Eva en un viaje de autodescubrimiento y crecimiento personal. Alcanza tus objetivos con su guía experta.",
+    imageUrl: tomR,
   },
   {
-    name: "Alejandro FitVida",
+    id: 3,
+    name: "Arnold Bumstrong",
     specialization: "Entrenador de Fitness",
     shortDescription:
-      "Transforma tu vida con Alejandro. Descubre cómo alcanzar un estilo de vida saludable y activo a través del fitness.",
-    imageUrl: "URL_de_la_imagen", // Reemplaza con la URL de la imagen del mentor de fitness
+      "Conviértete en la mejor versión de ti mismo con Felix. Descubre cómo alcanzar una vida llena de vitalidad y energía.",
+    imageUrl: arnoldB,
   },
   {
-    name: "Roberto MenteClara",
-    specialization: "Experto en Psicología",
+    id: 4,
+    name: "Sabella Mindflow",
+    specialization: "Experta en Psicología",
     shortDescription:
-      "Encuentra claridad mental con Roberto. Supera desafíos y cultiva una mentalidad positiva y resiliente con su guía.",
-    imageUrl: "URL_de_la_imagen", // Reemplaza con la URL de la imagen del mentor de psicología
+      "Navega por tu mente con la guía de Sofía. Supera desafíos y cultiva una mentalidad positiva y resiliente.",
+    imageUrl: isabellaM,
   },
   {
-    name: "Fernando RelacionesTrue",
-    specialization: "Experto en Relaciones Auténticas",
+    id: 5,
+    name: "Mario Luine",
+    specialization: "Gurú de Relaciones y Seducción",
     shortDescription:
-      "Domina el arte de las relaciones con Fernando. Aprende a construir conexiones genuinas y a comunicarte con impacto.",
-    imageUrl: "URL_de_la_imagen", // Reemplaza con la URL de la imagen del mentor de relaciones y seducción
+      "Aprende el arte de las relaciones con Gabo. Descubre cómo construir conexiones auténticas y tener éxito en el amor.",
+    imageUrl: marioL,
   },
 ];
