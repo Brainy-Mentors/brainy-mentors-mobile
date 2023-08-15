@@ -5,21 +5,19 @@ import TextStyled from "../ui/common/TextStyled";
 import { dataMentors } from "../../constants/dataMentors";
 
 export default function MentorsList() {
-
   const mentorsData = dataMentors;
 
-
   return (
-    <View style={{ gap: 16, paddingHorizontal: 0, paddingBottom:24 }}>
+    <View style={{ gap: 16 }}>
+      <TextStyled
+        fontWeight={"bold"}
+        fontSize={"big"}
+        color={"white"}
+        style={{ textAlign: "center", paddingTop: 8 }}
+      >
+        ¿Con quién quieres hablar?
+      </TextStyled>
       <ScrollView style={styles.container}>
-        <TextStyled
-          fontWeight={"bold"}
-          fontSize={"big"}
-          color={"white"}
-          style={{ textAlign: "center", paddingBottom: 16  }}
-        >
-          ¿Con quién quieres hablar?
-        </TextStyled>
         {mentorsData.map((mentor, index) => (
           <MentorCard
             mentor={mentor}
@@ -32,4 +30,4 @@ export default function MentorsList() {
   );
 }
 
-const styles = StyleSheet.create({ container: { marginBottom: 32 } });
+const styles = StyleSheet.create({ container: { marginBottom:100 } });
