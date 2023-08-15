@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import TextStyled from "../ui/common/TextStyled";
 import Button from "../ui/common/Button";
 import theme from "../../theme";
 import Feather from "react-native-vector-icons/Feather";
-import mentorImage from "../../assets/images/mentors/profesional-development-expert.png";
+import AppContext from "../../context/AppContext";
+import { useNavigation } from "@react-navigation/native";
 
 function ChangeMentor() {
-  const mentor = {
-    name: "Adrian JS",
-    imageUrl: mentorImage,
-  };
+  
+  const {selectedMentor} = useContext(AppContext);
+  const navigation = useNavigation();
 
-  const handleChange = () => {};
+  const handleChange = () => {
+    navigation.navigate("select-mentor")
+  };
 
   return (
     <View style={styles.container}>
@@ -29,7 +31,7 @@ function ChangeMentor() {
           <Feather name="repeat" style={styles.icon} />
         </TouchableOpacity>
         <View style={styles.containerMentor}>
-          <Image style={styles.mentorImage} source={mentor.imageUrl}></Image>
+          <Image style={styles?.mentorImage} source={selectedMentor?.imageUrl}></Image>
         </View>
       </View>
       <View>
@@ -39,10 +41,10 @@ function ChangeMentor() {
           fontSize={"extrabig"}
           style={{ textAlign: "center" }}
         >
-          Adrian JS
+          {selectedMentor.name}
         </TextStyled>
         <TextStyled style={{ textAlign: "center" }}>
-          [Mentor de programación]
+        [ {selectedMentor.specialization} ]
         </TextStyled>
       </View>
       <Button primary title={"Chatear"}></Button>
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
   containerMentor: {
     width: 240,
     aspectRatio: 8 / 12,
-    backgroundColor: "#627a96",
     borderRadius: 140,
     borderColor: theme.colors.white,
     borderWidth: 1,
