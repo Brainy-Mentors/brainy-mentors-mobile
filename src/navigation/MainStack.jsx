@@ -10,10 +10,11 @@ const Stack = createStackNavigator();
 
 const customScreenOptions = {
   ...TransitionPresets.SlideFromRightIOS,
-  gestureDirection: "horizontal", // Dirección de deslizamiento
+  gestureDirection: "horizontal",
 };
 
 export default function MainStack() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -23,9 +24,9 @@ export default function MainStack() {
           ...customScreenOptions,
         }}
       >
+        <Stack.Screen name="profile" component={Profile} />
         <Stack.Screen name="select-mentor" component={SelectMentor} />
         <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
