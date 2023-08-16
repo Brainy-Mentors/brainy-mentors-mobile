@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import ScreenBase from "../ScreenBase";
 import { useRoute } from "@react-navigation/native";
@@ -6,6 +6,7 @@ import NavChat from "../../components/ui/navigation/NavChat";
 import theme from "../../theme";
 import TextStyled from "../../components/ui/common/TextStyled";
 import Button from "../../components/ui/common/Button";
+import chatService from "../../services/chat/ChatService";
 
 const Message = ({
   text,
@@ -54,16 +55,40 @@ const allMessages = [
 export default function Chat() {
   const route = useRoute();
   const { params } = route;
+  const [conversation, setconversation] = useState([]);
+  const [inputText, setInputText] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    let newConversation = conversation;
+    let objectMessage = {
+      sederName: "Gary",
+      text: inputText,
+      isCurrentUser: true,
+    };
+    newConversation.push(objectMessage);
+    setconversation(newConversation);
+    console.log(conversation);
+    handleMessage(inputText);
+    setInputText("");
+  };
 
-  console.log(params.mentor);
+  async function handleMessage(message) {
+    const { data } = await chatService.chat(message);
+    let newMessage = {
+      sederName: params.mentor.name,
+      text: data.choices[0].message.content,
+      isCurrentUser: false,
+    };
+    setconversation((prevConversation) => [...prevConversation, newMessage]);
+  }
+
+  // console.log(params.mentor);
   return (
     <>
       <ScreenBase complete>
         <NavChat />
         <ScrollView style={styles.containerChat}>
-          {allMessages.map((message, index) => {
+          {conversation.map((message, index) => {
             return (
               <View styles={{ width: "100%" }} key={index}>
                 <Message
@@ -77,15 +102,22 @@ export default function Chat() {
         </ScrollView>
       </ScreenBase>
       <View style={styles.bottomContainer}>
-        <TextInput style={styles.textInput}></TextInput>
-        <Button title={"Enviar"} secondary onPresse={handleSubmit} />
+        <TextInput
+          onChangeText={(text) => setInputText(text)}
+          placeholder="Tu mensaje..."
+          style={styles.textInput}
+          value={inputText}
+        ></TextInput>
+        <Button title={"Enviar"} secondary onPress={handleSubmit} />
       </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  containerChat: {},
+  containerChat: {
+    marginBottom:140
+  },
   bottomContainer: {
     backgroundColor: theme.colors.backgroundBase,
     flexDirection: "row",
@@ -99,6 +131,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: theme.colors.white,
     borderRadius: 8,
+    paddingHorizontal: 8,
     flex: 1,
   },
 
