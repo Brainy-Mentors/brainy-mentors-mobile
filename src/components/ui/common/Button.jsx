@@ -6,7 +6,7 @@ import theme from "../../../theme";
 export default function Button({
   title,
   children,
-  styled,
+  style,
   onPress,
   primary,
   secondary,
@@ -16,7 +16,7 @@ export default function Button({
     styles.baseBtn,
     primary && styles.primary,
     secondary && styles.secondary,
-    styled,
+    style,
   ];
 
   return (
