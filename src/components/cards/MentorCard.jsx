@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   image: {
-    width: 90,
-    height: 120,
-    aspectRatio: 1 / 1,
+    width: 120,
+    height: 150,
+    transform:[{translateY:15}]
   },
 });

@@ -16,7 +16,7 @@ function ChangeMentor() {
   };
 
   const handleChat = () => {
-    navigation.navigate("chat", {mentor: selectedMentor });
+    navigation.navigate("chat", { mentor: selectedMentor });
   };
 
   return (
@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.white,
     borderWidth: 1,
     justifyContent: "flex-end",
+    alignItems: "center",
     overflow: "hidden",
     position: "relative",
   },
-  mentorImage: { width: 250, height: 255 },
+  mentorImage: { width: 280, height: 330, transform: [{ translateY: 20 }] },
   changeButton: {
     width: 40,
     height: 40,
