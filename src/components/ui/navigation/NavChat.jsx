@@ -17,7 +17,7 @@ export default function NavChat() {
           {selectedMentor?.name}
         </TextStyled>
         <TextStyled color={"primary"} fontSize={"title"}>
-          En linea
+          - Online
         </TextStyled>
       </TouchableOpacity>
       <TouchableOpacity>

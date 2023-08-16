@@ -67,13 +67,12 @@ export default function Chat() {
     };
     newConversation.push(objectMessage);
     setconversation(newConversation);
-    console.log(conversation);
     handleMessage(inputText);
     setInputText("");
   };
 
   async function handleMessage(message) {
-    const { data } = await chatService.chat(message);
+    const { data } = await chatService.chat(params.mentor.id, message);
     let newMessage = {
       sederName: params.mentor.name,
       text: data.choices[0].message.content,
@@ -82,7 +81,6 @@ export default function Chat() {
     setconversation((prevConversation) => [...prevConversation, newMessage]);
   }
 
-  // console.log(params.mentor);
   return (
     <>
       <ScreenBase complete>
@@ -116,7 +114,7 @@ export default function Chat() {
 
 const styles = StyleSheet.create({
   containerChat: {
-    marginBottom:140
+    marginBottom: 140,
   },
   bottomContainer: {
     backgroundColor: theme.colors.backgroundBase,
