@@ -6,14 +6,8 @@ import NavChat from "../../components/ui/navigation/NavChat";
 import theme from "../../theme";
 import Button from "../../components/ui/common/Button";
 import chatService from "../../services/chat/ChatService";
-import axios from "axios";
 import Message from "../../components/ui/message/Message";
-import {
-  setupDatabase,
-  insertMessage,
-  getAllMessages,
-  getAllMessagesByMentorId,
-} from "../../data/database";
+import { insertMessage, getAllMessagesByMentorId } from "../../data/database";
 
 export default function Chat() {
   const route = useRoute();
@@ -24,10 +18,9 @@ export default function Chat() {
 
   const handleSubmit = () => {
     let textToSend = inputText;
-
-    console.log(textToSend, "text")
     setInputText("");
     addMessage(mentorID, textToSend, true);
+    handleChat(textToSend);
   };
 
   useEffect(() => {
@@ -45,18 +38,24 @@ export default function Chat() {
     });
   };
 
+  async function handleChat(message) {
+    const { data } = await chatService.chat(mentorID, message);
+    addMessage(mentorID, data.choices[0].message.content, false);
+    refreshMessages(mentorID);
+  }
+
   return (
     <>
       <ScreenBase complete>
         <NavChat />
         <ScrollView style={styles.containerChat}>
           {messages.map((message, index) => {
-            return message.mentorId == params.mentor.id ? (
+            return message.mentorId == params?.mentor?.id ? (
               <View styles={{ width: "100%" }} key={index}>
                 <Message
                   isCurrentUser={message?.isCurrentUser}
                   text={message.text}
-                  sederName={message?.sederName}
+                  sederName={params?.mentor?.name}
                 />
               </View>
             ) : null;
@@ -78,7 +77,7 @@ export default function Chat() {
 
 const styles = StyleSheet.create({
   containerChat: {
-    marginBottom: 140,
+    marginBottom: 150,
   },
   bottomContainer: {
     backgroundColor: theme.colors.backgroundBase,
