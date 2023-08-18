@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import TextStyled from "../common/TextStyled";
 import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
+import ChangeLenguage from "./ChangeLenguage";
 
 export default function Navbar() {
   return (
@@ -12,9 +13,7 @@ export default function Navbar() {
           BrainyMentors
         </TextStyled>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Feather name="menu" style={styles.icon} />
-      </TouchableOpacity>
+      <ChangeLenguage></ChangeLenguage>
     </View>
   );
 }
