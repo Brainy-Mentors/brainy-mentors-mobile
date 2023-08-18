@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import theme from "../../../theme";
 import TextStyled from "../common/TextStyled";
+import { useTranslation } from "react-i18next";
 
 export default function Message({
   text,
@@ -17,10 +18,12 @@ export default function Message({
     style,
   ];
 
+  const { t } = useTranslation("global");
+
   return (
     <View style={messageStyle}>
       <TextStyled color={"black"} fontWeight={"bold"}>
-        {isCurrentUser ? "Me" : sederName}
+        {isCurrentUser ? t("chat.you") : sederName}
       </TextStyled>
       <TextStyled color={"black"}>{text && text}</TextStyled>
     </View>

@@ -1,11 +1,15 @@
 import { createContext, useState } from "react";
 import { dataMentors } from "../constants/dataMentors";
+import useAsyncStorage from "../hooks/useAsyncStorage";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [selectedMentor, setSelectedMentor] = useState(dataMentors()[0]);
-  const [lang, setLang] = useState("en");
+  const [selectedMentor, setSelectedMentor] = useAsyncStorage(
+    "selectedMentor",
+    dataMentors()[0] | undefined
+  );
+  const [lang, setLang] = useAsyncStorage("lang", "en");
 
   const contextData = {
     selectedMentor,

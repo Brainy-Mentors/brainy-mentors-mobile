@@ -7,15 +7,14 @@ import { useTranslation } from "react-i18next";
 
 export const dataMentors = () => {
   const { t } = useTranslation("global");
-
-  return [
+  const arrMentors = [
     {
       id: 1,
       name: t("mentors.1.name"),
       specialization: t("mentors.1.specialization"),
       shortDescription: t("mentors.1.shortDescription"),
       imageUrl: adrianJ,
-      initialMessage:t("mentors.1.initialMessage")
+      initialMessage: t("mentors.1.initialMessage"),
     },
     {
       id: 2,
@@ -23,7 +22,7 @@ export const dataMentors = () => {
       specialization: t("mentors.2.specialization"),
       shortDescription: t("mentors.2.shortDescription"),
       imageUrl: tomR,
-      initialMessage:t("mentors.2.initialMessage")
+      initialMessage: t("mentors.2.initialMessage"),
     },
     {
       id: 3,
@@ -31,7 +30,7 @@ export const dataMentors = () => {
       specialization: t("mentors.3.specialization"),
       shortDescription: t("mentors.3.shortDescription"),
       imageUrl: arnoldB,
-      initialMessage:t("mentors.3.initialMessage")
+      initialMessage: t("mentors.3.initialMessage"),
     },
     {
       id: 4,
@@ -39,7 +38,7 @@ export const dataMentors = () => {
       specialization: t("mentors.4.specialization"),
       shortDescription: t("mentors.4.shortDescription"),
       imageUrl: isabellaM,
-      initialMessage:t("mentors.4.initialMessage")
+      initialMessage: t("mentors.4.initialMessage"),
     },
     {
       id: 5,
@@ -47,7 +46,8 @@ export const dataMentors = () => {
       specialization: t("mentors.5.specialization"),
       shortDescription: t("mentors.5.shortDescription"),
       imageUrl: marioL,
-      initialMessage:t("mentors.5.initialMessage")
+      initialMessage: t("mentors.5.initialMessage"),
     },
   ];
+  return arrMentors;
 };

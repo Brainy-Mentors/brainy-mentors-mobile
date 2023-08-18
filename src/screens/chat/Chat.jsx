@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import ScreenBase from "../ScreenBase";
 import { useRoute } from "@react-navigation/native";
@@ -8,13 +8,17 @@ import Button from "../../components/ui/common/Button";
 import chatService from "../../services/chat/ChatService";
 import Message from "../../components/ui/message/Message";
 import { insertMessage, getAllMessagesByMentorId } from "../../data/database";
+import AppContext from "../../context/AppContext";
+import { useTranslation } from "react-i18next";
 
 export default function Chat() {
+  const { t } = useTranslation("global");
   const route = useRoute();
   const { params } = route;
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [mentorID, setmentorID] = useState(params.mentor.id);
+  const { lang } = useContext(AppContext);
 
   const handleSubmit = () => {
     let textToSend = inputText;
@@ -39,7 +43,7 @@ export default function Chat() {
   };
 
   async function handleChat(message) {
-    const { data } = await chatService.chat(mentorID, message);
+    const { data } = await chatService.chat(mentorID, message, lang);
     addMessage(mentorID, data.choices[0].message.content, false);
     refreshMessages(mentorID);
   }
@@ -49,6 +53,11 @@ export default function Chat() {
       <ScreenBase complete>
         <NavChat />
         <ScrollView style={styles.containerChat}>
+          <Message
+            isCurrentUser={false}
+            text={t(`mentors.${mentorID}.initialMessage`)}
+            sederName={params?.mentor?.name}
+          />
           {messages.map((message, index) => {
             return message.mentorId == params?.mentor?.id ? (
               <View styles={{ width: "100%" }} key={index}>

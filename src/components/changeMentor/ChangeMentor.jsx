@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import TextStyled from "../ui/common/TextStyled";
 import Button from "../ui/common/Button";
@@ -6,8 +6,10 @@ import theme from "../../theme";
 import Feather from "react-native-vector-icons/Feather";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 function ChangeMentor() {
+  const { t } = useTranslation("global");
   const { selectedMentor } = useContext(AppContext);
   const navigation = useNavigation();
 
@@ -16,7 +18,7 @@ function ChangeMentor() {
   };
 
   const handleChat = () => {
-    navigation.navigate("chat", { mentor: selectedMentor });
+    navigation.navigate("chat", { mentor: JSON.parse(selectedMentor) });
   };
 
   return (
@@ -27,7 +29,7 @@ function ChangeMentor() {
         fontSize={"extrabig"}
         style={{ textAlign: "center" }}
       >
-        Tu mentor es...
+        {t("home.yourMentorIs")}
       </TextStyled>
       <View>
         <TouchableOpacity style={styles.changeButton} onPress={handleChange}>
@@ -36,7 +38,7 @@ function ChangeMentor() {
         <View style={styles.containerMentor}>
           <Image
             style={styles?.mentorImage}
-            source={selectedMentor?.imageUrl}
+            source={JSON.parse(selectedMentor)?.imageUrl}
           ></Image>
         </View>
       </View>
@@ -47,13 +49,13 @@ function ChangeMentor() {
           fontSize={"extrabig"}
           style={{ textAlign: "center" }}
         >
-          {selectedMentor.name}
+          {JSON.parse(selectedMentor).name}
         </TextStyled>
         <TextStyled style={{ textAlign: "center" }}>
-          [ {selectedMentor.specialization} ]
+          [ {t(`mentors.${JSON.parse(selectedMentor).id}.specialization`)} ]
         </TextStyled>
       </View>
-      <Button primary title={"Chatear"} onPress={handleChat}></Button>
+      <Button primary title={t("home.chating")} onPress={handleChat}></Button>
     </View>
   );
 }

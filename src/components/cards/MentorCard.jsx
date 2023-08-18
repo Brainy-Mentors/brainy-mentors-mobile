@@ -6,17 +6,18 @@ import Button from "../ui/common/Button";
 import AppContext from "../../context/AppContext";
 import { dataMentors } from "../../constants/dataMentors";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export default function MentorCard({ mentor, style }) {
   const styleMentorCard = [styles.container, style];
+  const { t } = useTranslation("global");
   const { selectedMentor, setSelectedMentor } = useContext(AppContext);
   const navigation = useNavigation();
 
-
   const handleSelect = () => {
-    const mentorClicked = dataMentors.find((item) => item.id === mentor.id);
+    const mentorClicked = JSON.stringify(mentor);
     setSelectedMentor(mentorClicked);
-    navigation.navigate("home")
+    navigation.navigate("home");
   };
   return (
     <View style={styleMentorCard}>
@@ -28,9 +29,9 @@ export default function MentorCard({ mentor, style }) {
           {mentor.name} | {mentor.specialization}
         </TextStyled>
         <TextStyled color={"white"}>
-          {mentor.shortDescription.slice(0, 80)}
+          {mentor.shortDescription.slice(0, 80)}...
         </TextStyled>
-        <Button secondary title={"Seleccionar"} onPress={handleSelect} />
+        <Button secondary title={t("mentorList.select")} onPress={handleSelect} />
       </View>
     </View>
   );
@@ -66,6 +67,6 @@ const styles = StyleSheet.create({
   image: {
     width: 120,
     height: 150,
-    transform:[{translateY:15}]
+    transform: [{ translateY: 15 }],
   },
 });
