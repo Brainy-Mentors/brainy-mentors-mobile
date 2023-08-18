@@ -42,8 +42,22 @@ export default function Chat() {
     });
   };
 
+  const contextMessages = () => {
+    console.log();
+    refreshMessages(mentorID);
+    let lastMessages = messages?.slice(-3).map((message) => {
+      return {
+        role: message?.isCurrentUser ? "user" : "system",
+        content: message?.text,
+      };
+    });
+    return lastMessages;
+  };
+
   async function handleChat(message) {
-    const { data } = await chatService.chat(mentorID, message, lang);
+    const conversationContext = contextMessages();
+    console.log(conversationContext)
+    const { data } = await chatService.chat(mentorID, message, lang,conversationContext);
     addMessage(mentorID, data.choices[0].message.content, false);
     refreshMessages(mentorID);
   }
