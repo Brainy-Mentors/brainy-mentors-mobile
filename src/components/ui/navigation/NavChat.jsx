@@ -15,7 +15,7 @@ export default function NavChat() {
         style={{ flexDirection: "row", gap: 8, alignItems: "flex-end" }}
       >
         <TextStyled fontWeight={"bold"} color={"white"} fontSize={"big"}>
-          {selectedMentor?.name}
+          {JSON.parse(selectedMentor).name}
         </TextStyled>
         <TextStyled color={"primary"} fontSize={"title"}>
           - Online
