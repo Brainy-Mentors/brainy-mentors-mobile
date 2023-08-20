@@ -43,7 +43,6 @@ export default function Chat() {
   };
 
   const contextMessages = () => {
-    console.log();
     refreshMessages(mentorID);
     let lastMessages = messages?.slice(-3).map((message) => {
       return {

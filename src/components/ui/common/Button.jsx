@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   secondary: {
-    paddingVertical: 4,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     backgroundColor: theme.colors.white,
   },
