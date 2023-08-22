@@ -1,4 +1,7 @@
 {
+  "navbar": {
+    "tokenShop": "Consigue más tokens! :D"
+  },
   "home": {
     "yourMentorIs": "Tu mentor es...",
     "chating": "Chat"
@@ -9,7 +12,8 @@
   },
   "chat": {
     "online": "En línea",
-    "you": "Tú"
+    "you": "Tú",
+    "writing": "Escribiendo..."
   },
   "mentors": {
     "1": {

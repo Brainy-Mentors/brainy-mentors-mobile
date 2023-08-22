@@ -4,6 +4,7 @@ import TextStyled from "../common/TextStyled";
 import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
 import ChangeLenguage from "./ChangeLenguage";
+import TokensButton from "./TokensButton";
 
 export default function Navbar() {
   return (
@@ -13,7 +14,10 @@ export default function Navbar() {
           BrainyMentors
         </TextStyled>
       </TouchableOpacity>
-      <ChangeLenguage></ChangeLenguage>
+      <View style={{ flexDirection: "row" ,gap:16, alignItems:'center'}}>
+        <TokensButton />
+        <ChangeLenguage></ChangeLenguage>
+      </View>
     </View>
   );
 }

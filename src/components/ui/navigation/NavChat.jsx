@@ -5,6 +5,7 @@ import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
 import AppContext from "../../../context/AppContext";
 import ChangeLenguage from "./ChangeLenguage";
+import TokensButton from "./TokensButton";
 
 export default function NavChat() {
   const { selectedMentor } = useContext(AppContext);
@@ -21,7 +22,10 @@ export default function NavChat() {
           - Online
         </TextStyled>
       </TouchableOpacity>
-      <ChangeLenguage></ChangeLenguage>
+      <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+        <TokensButton />
+        <ChangeLenguage></ChangeLenguage>
+      </View>
     </View>
   );
 }
