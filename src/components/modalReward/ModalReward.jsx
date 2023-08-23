@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
+  Image,
   Modal,
   StyleSheet,
   Text,
@@ -7,6 +8,7 @@ import {
   View,
   ViewBase,
 } from "react-native";
+import brainCoinsGroup from "../../assets/images/brainCoins.png";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useTranslation } from "react-i18next";
 import Button from "../ui/common/Button";
@@ -14,41 +16,30 @@ import TextStyled from "../ui/common/TextStyled";
 import theme from "../../theme";
 import IconButton from "../ui/common/IconButton";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { TestIds } from "react-native-google-mobile-ads";
+import AppContext from "../../context/AppContext";
+import AdContext from "../../context/AdContext";
 
-const ProgressBar = ({ style, progress, maxCount }) => {
-  let progressBar = progress;
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        maxHeight: 30,
-        borderRadius: 8,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: theme.colors.white,
-        position: "relative",
-      }}
-    >
-      <TextStyled>1/16</TextStyled>
-    </View>
-  );
-};
-const OptionReward = ({ ctaReward, titleReward, handleReward, reward }) => {
-  const [percent, setPercent] = useState(0);
+const OptionReward = ({
+  ctaReward,
+  titleReward,
+  handleReward,
+  reward,
+  btnIsDisabled,
+}) => {
+  const { t } = useTranslation("global");
   return (
     <View style={styles.optionRewardContainer}>
       <View style={{ gap: 0 }}>
         <TextStyled color={"white"} fontWeight={"bold"} fontSize={"subheading"}>
           🪧 {titleReward}
         </TextStyled>
-        {/* <ProgressBar progress={percent} /> */}
         <TextStyled
           color="primary"
           fontWeight={"bold"}
           style={{ textAlign: "center" }}
         >
-          +{reward} tokens
+          +{reward} {t("modalReward.brainCoins")}
         </TextStyled>
       </View>
       <View
@@ -57,9 +48,10 @@ const OptionReward = ({ ctaReward, titleReward, handleReward, reward }) => {
         }}
       >
         <Button
-          onPress={handleReward}
+          onPress={() => handleReward()}
           title={ctaReward}
           style={{ alignSelf: "center" }}
+          inactive={btnIsDisabled}
           secondary
         ></Button>
       </View>
@@ -68,10 +60,38 @@ const OptionReward = ({ ctaReward, titleReward, handleReward, reward }) => {
 };
 
 export default function ModalReward({ isOpenModal, setIsOpenModal }) {
+  const { showAd, loadAd } = useContext(AdContext);
+  const { tokensCount, setTokensCount } = useContext(AppContext);
+  const [btnIsDisabled, setBtnIsDisabled] = useState(false);
+
   const { t } = useTranslation("global");
 
   const handleClose = () => {
     setIsOpenModal(false);
+  };
+  useEffect(() => {
+    loadAd();
+  }, []);
+
+  const handleShowAd = async () => {
+    let nTokens = parseInt(tokensCount) + 3;
+    setBtnIsDisabled(true);
+    try {
+      await showAd();
+      setTokensCount(nTokens.toString());
+      await loadAd();
+      setBtnIsDisabled(false);
+    } catch (error) {
+      setBtnIsDisabled(true);
+
+      await loadAd();
+
+      setTimeout(() => {
+        showAd();
+        setTokensCount(nTokens.toString());
+        setBtnIsDisabled(false);
+      }, 1500);
+    }
   };
 
   return (
@@ -82,37 +102,50 @@ export default function ModalReward({ isOpenModal, setIsOpenModal }) {
           width: "100%",
           backgroundColor: theme.colors.backgroundBase,
           position: "absolute",
-          opacity: 0.95,
+          opacity: 0.985,
         }}
       ></View>
 
-      <TouchableOpacity
+      <View
         style={{
           paddingHorizontal: 24,
           height: "100%",
           justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
         }}
       >
-        <TextStyled style={{ margin: 16, textAlign: "center" }}>
-          Tus tokens : 30
+        <IconButton
+          style={{ position: "absolute", top: 0, right: 0, margin: 24 }}
+          onPress={handleClose}
+        >
+          <Icon name="close" size={32} color="white" />
+        </IconButton>
+        <Image source={brainCoinsGroup}></Image>
+        <TextStyled
+          fontSize={"extrabig"}
+          fontWeight={"bold"}
+          style={{ margin: 16, textAlign: "center" }}
+        >
+          {t("modalReward.yourBrainCoins")} : {tokensCount}
         </TextStyled>
         <View style={styles.containerModal}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-            }}
+          <TextStyled
+            fontSize={"title"}
+            style={{ textAlign: "center" }}
+            color={"white"}
+            fontWeight={"bold"}
           >
-            <TextStyled fontSize={"big"} fontWeight={"bold"}>
-              {t("navbar.tokenShop")}
-            </TextStyled>
-            <IconButton style={{ marginTop: -4 }} onPress={handleClose}>
-              <Icon name="close" size={20} color="white" />
-            </IconButton>
-          </View>
+            {t("navbar.tokenShop")}
+          </TextStyled>
 
-          <OptionReward titleReward={"Mira un anuncio"} ctaReward={"Obtener"} />
+          <OptionReward
+            titleReward={t("modalReward.watchAd")}
+            ctaReward={t("modalReward.get")}
+            reward={" 3 "}
+            btnIsDisabled={btnIsDisabled}
+            handleReward={handleShowAd}
+          />
         </View>
         <TextStyled
           color={"white"}
@@ -124,10 +157,9 @@ export default function ModalReward({ isOpenModal, setIsOpenModal }) {
             marginTop: 8,
           }}
         >
-          Realmente nos gustaría evitar usar anuncios pero no sería sostenible,
-          espero que entiendan, gracias! :D
+          {t("modalReward.anouncementAds")}
         </TextStyled>
-      </TouchableOpacity>
+      </View>
     </Modal>
   );
 }
