@@ -22,17 +22,19 @@ export default function Message({
 
   return (
     <View style={messageStyle}>
-      <TextStyled color={"black"} fontWeight={"bold"}>
+      <TextStyled color={"black"} fontSize={"heading"} fontWeight={"bold"}>
         {isCurrentUser ? t("chat.you") : sederName}
       </TextStyled>
-      <TextStyled color={"black"}>{text && text}</TextStyled>
+      <TextStyled color={"black"} style={{ fontSize: 14 }}>
+        {text && text}
+      </TextStyled>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   containerMessage: {
-    maxWidth: "80%",
+    maxWidth: "90%",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 16,
