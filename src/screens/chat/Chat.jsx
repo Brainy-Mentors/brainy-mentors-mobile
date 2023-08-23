@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import ScreenBase from "../ScreenBase";
 import { useRoute } from "@react-navigation/native";
@@ -15,8 +15,7 @@ import AdContext from "../../context/AdContext";
 
 export default function Chat() {
   const { t } = useTranslation("global");
-  const route = useRoute();
-  const { params } = route;
+  const { params } = useRoute();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
 
@@ -57,6 +56,7 @@ export default function Chat() {
   const refreshMessages = (mentorId) => {
     getAllMessagesByMentorId(mentorId, (data) => setMessages(data));
     haveTokens();
+    scrollToBottom();
   };
 
   const addMessage = (mentorId, text, isCurrentUser) => {
@@ -97,11 +97,17 @@ export default function Chat() {
     haveTokens();
   }
 
+  const scrollViewRef = useRef(null);
+
+  const scrollToBottom = () => {
+    scrollViewRef.current.scrollToEnd({ animated: true });
+  };
+
   return (
     <>
       <ScreenBase complete>
         <NavChat />
-        <ScrollView style={styles.containerChat}>
+        <ScrollView style={styles.containerChat} ref={scrollViewRef}>
           <Message
             isCurrentUser={false}
             text={t(`mentors.${mentorID}.initialMessage`)}
