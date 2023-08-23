@@ -1,120 +1,54 @@
 import axios from "axios";
-
-const API_OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+import { OPENAI_API_URL_BASE, OPENAI_API_KEY } from "@env";
 
 const prompts = {
-  default: [
-    {
-      role: "system",
-      content:
-        "Actúa como un experto en desarrollo personal. Responde de forma carismática y directa.",
-    },
-  ],
-  1: [
-    {
-      role: "system",
-      content:
-        "Actúa como Adrian JS, mentor de programación. Responde con conocimientos técnicos.",
-    },
-  ],
-  2: [
-    {
-      role: "system",
-      content:
-        "Actúa como Tom Robbins, coach de desarrollo personal. Proporciona guía de crecimiento.",
-    },
-  ],
-  3: [
-    {
-      role: "system",
-      content:
-        "Actúa como Arnold Bumstrong, entrenador de fitness. Motiva a llevar un estilo de vida saludable.",
-    },
-  ],
-  4: [
-    {
-      role: "system",
-      content:
-        "Actúa como Sabella Mindflow, experta en psicología. Ofrece consejos para la salud mental.",
-    },
-  ],
-  5: [
-    {
-      role: "system",
-      content:
-        "Actúa como Mario Luine, gurú de relaciones y seducción. Da consejos sobre relaciones.",
-    },
-  ],
+  default: "Actúa como un experto en desarrollo personal. Responde de forma carismática y directa.",
+  1: "Actúa como Adrian JS, mentor de programación. Responde con conocimientos técnicos.",
+  2: "Actúa como Tom Robbins, coach de desarrollo personal. Proporciona guía de crecimiento.",
+  3: "Actúa como Arnold Bumstrong, entrenador de fitness. Motiva a llevar un estilo de vida saludable.",
+  4: "Actúa como Sabella Mindflow, experta en psicología. Ofrece consejos para la salud mental.",
+  5: "Actúa como Mario Luine, gurú de relaciones y seducción. Da consejos sobre relaciones.",
 };
+
 const promptsEn = {
-  default: [
-    {
-      role: "system",
-      content:
-        "Act as an expert in personal development. Respond charismatically and directly.",
-    },
-  ],
-  1: [
-    {
-      role: "system",
-      content:
-        "Act as Adrian JS, programming mentor. Respond with technical knowledge.",
-    },
-  ],
-  2: [
-    {
-      role: "system",
-      content:
-        "Act as Tom Robbins, personal development coach. Provide growth guidance.",
-    },
-  ],
-  3: [
-    {
-      role: "system",
-      content:
-        "Act as Arnold Bumstrong, fitness trainer. Motivate to lead a healthy lifestyle.",
-    },
-  ],
-  4: [
-    {
-      role: "system",
-      content:
-        "Act as Sabella Mindflow, psychology expert. Offer advice for mental health.",
-    },
-  ],
-  5: [
-    {
-      role: "system",
-      content:
-        "Act as Mario Luine, relationships and seduction guru. Give relationship advice.",
-    },
-  ],
+  default: "Act as an expert in personal development. Respond charismatically and directly.",
+  1: "Act as Adrian JS, programming mentor. Respond with technical knowledge.",
+  2: "Act as Tom Robbins, personal development coach. Provide growth guidance.",
+  3: "Act as Arnold Bumstrong, fitness trainer. Motivate to lead a healthy lifestyle.",
+  4: "Act as Sabella Mindflow, psychology expert. Offer advice for mental health.",
+  5: "Act as Mario Luine, relationships and seduction guru. Give relationship advice.",
+};
+
+const getSelectedPrompt = (mentorId, lang) => {
+  return lang == "es" ? prompts[mentorId] || prompts.default : promptsEn[mentorId] || promptsEn.default;
 };
 
 const chatService = {
-  chat: (mentorId, messageInput, lang, conversationContext) => {
-    const selectedPrompt =
-      lang == "es"
-        ? prompts[mentorId] || prompts.default
-        : promptsEn[mentorId] || promptsEn.default;
+  chat: async (mentorId, messageInput, lang, conversationContext) => {
+    const selectedPrompt = getSelectedPrompt(mentorId, lang);
 
     const requestData = {
-      messages: selectedPrompt.concat(conversationContext, {
-        role: "user",
-        content: messageInput,
-      }),
+      messages: [
+        { role: "system", content: selectedPrompt },
+        ...conversationContext,
+        { role: "user", content: messageInput },
+      ],
       model: "gpt-3.5-turbo",
     };
 
     const requestConfig = {
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
     };
 
-    return axios.post(API_OPENAI_URL, requestData, requestConfig);
+    try {
+      const response = await axios.post(OPENAI_API_URL_BASE, requestData, requestConfig);
+      return response;
+    } catch (error) {
+      throw error;
+    }
   },
 };
 
