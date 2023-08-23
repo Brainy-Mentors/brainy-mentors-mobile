@@ -10,6 +10,8 @@ import Message from "../../components/ui/message/Message";
 import { insertMessage, getAllMessagesByMentorId } from "../../data/database";
 import AppContext from "../../context/AppContext";
 import { useTranslation } from "react-i18next";
+import TextStyled from "../../components/ui/common/TextStyled";
+import AdContext from "../../context/AdContext";
 
 export default function Chat() {
   const { t } = useTranslation("global");
@@ -17,26 +19,47 @@ export default function Chat() {
   const { params } = route;
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+
   const [mentorID, setmentorID] = useState(params.mentor.id);
-  const { lang } = useContext(AppContext);
+  const { lang, setIsOpenModalReward, tokensCount, setTokensCount } =
+    useContext(AppContext);
+
+  const [isTyping, setIsTyping] = useState(false);
+  const [canSendMessage, setCanSendMessage] = useState(true);
 
   const handleSubmit = () => {
     let textToSend = inputText;
-    setInputText("");
-    addMessage(mentorID, textToSend, true);
-    handleChat(textToSend);
+
+    if (canSendMessage === true && inputText.length > 0) {
+      setInputText("");
+      let nTokens = parseInt(tokensCount) - 1;
+      setTokensCount(nTokens.toString());
+      addMessage(mentorID, textToSend, true);
+      handleChat(textToSend);
+      setIsTyping(true);
+    }
+    if (canSendMessage === false) {
+      setIsOpenModalReward(true);
+    }
   };
 
   useEffect(() => {
     refreshMessages(mentorID);
+    haveTokens();
   }, []);
+
+  const haveTokens = () => {
+    parseInt(tokensCount) > 0
+      ? setCanSendMessage(true)
+      : setCanSendMessage(false);
+  };
 
   const refreshMessages = (mentorId) => {
     getAllMessagesByMentorId(mentorId, (data) => setMessages(data));
+    haveTokens();
   };
 
   const addMessage = (mentorId, text, isCurrentUser) => {
-    console.log(mentorId, text, isCurrentUser, "addmessage!");
     insertMessage(mentorId, text, isCurrentUser, () => {
       refreshMessages(mentorID);
     });
@@ -53,12 +76,25 @@ export default function Chat() {
     return lastMessages;
   };
 
+  const handleInputChange = (text) => {
+    haveTokens();
+    if (text.length < 250) {
+      setInputText(text);
+    }
+  };
+
   async function handleChat(message) {
     const conversationContext = contextMessages();
-    console.log(conversationContext)
-    const { data } = await chatService.chat(mentorID, message, lang,conversationContext);
+    const { data } = await chatService.chat(
+      mentorID,
+      message,
+      lang,
+      conversationContext
+    );
     addMessage(mentorID, data.choices[0].message.content, false);
+    setIsTyping(false);
     refreshMessages(mentorID);
+    haveTokens();
   }
 
   return (
@@ -82,16 +118,42 @@ export default function Chat() {
               </View>
             ) : null;
           })}
+          {isTyping && (
+            <Message
+              isCurrentUser={false}
+              text={t(`chat.writing`)}
+              sederName={params?.mentor?.name}
+            />
+          )}
         </ScrollView>
       </ScreenBase>
       <View style={styles.bottomContainer}>
-        <TextInput
-          onChangeText={(text) => setInputText(text)}
-          placeholder="Tu mensaje..."
-          style={styles.textInput}
-          value={inputText}
-        ></TextInput>
-        <Button title={"Enviar"} secondary onPress={handleSubmit} />
+        <View style={{ flex: 1, position: "relative" }}>
+          <TextInput
+            onChangeText={(text) => handleInputChange(text)}
+            placeholder="Tu mensaje..."
+            style={styles.textInput}
+            value={inputText}
+          />
+          <TextStyled
+            color={"black"}
+            style={{
+              position: "absolute",
+              right: 10,
+              bottom: 2,
+              opacity: 0.5,
+              fontSize: 10,
+            }}
+          >
+            {inputText.length}/250
+          </TextStyled>
+        </View>
+        <Button
+          title={"Enviar"}
+          secondary
+          onPress={handleSubmit}
+          inactive={!canSendMessage}
+        />
       </View>
     </>
   );
