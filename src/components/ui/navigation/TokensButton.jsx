@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../../theme";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import TextStyled from "../common/TextStyled";
 import AppContext from "../../../context/AppContext";
 
@@ -9,16 +9,15 @@ export default function TokensButton() {
   const { tokensCount, setIsOpenModalReward } = useContext(AppContext);
 
   const handlePress = () => {
-    console.log("active");
     setIsOpenModalReward(true);
   };
   return (
-    <TouchableOpacity style={styles.container}  onPressIn={handlePress}>
+    <TouchableOpacity style={styles.container} onPressIn={handlePress}>
       <TextStyled color={"white"} style={{ paddingHorizontal: 8 }}>
         {tokensCount && tokensCount}
       </TextStyled>
       <View style={styles.containerIcon}>
-        <Icon name="plus" size={15} color="black" />
+        <Icon name="brain" size={12} color="black" />
       </View>
     </TouchableOpacity>
   );
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 2,
+    paddingHorizontal: 4,
     borderRadius: 99,
   },
 });
