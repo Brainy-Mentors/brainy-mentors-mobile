@@ -17,18 +17,26 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: theme.fontWeights.bold,
+    fontFamily:theme.fonts.bold
   },
   subheading: {
+    fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.subheading,
+    fontFamily:theme.fonts.bold
+
   },
   textAlignCenter: {
     textAlign: "center",
   },
   bigFont: {
     fontSize: theme.fontSizes.big,
+    fontFamily:theme.fonts.extraBold
+
   },
   extraBigFont: {
     fontSize: theme.fontSizes.extraBig,
+    fontFamily:theme.fonts.extraBold
+
   },
   titleFont: {
     fontSize: theme.fontSizes.title,
