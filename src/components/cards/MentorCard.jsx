@@ -4,14 +4,13 @@ import theme from "../../theme";
 import TextStyled from "../ui/common/TextStyled";
 import Button from "../ui/common/Button";
 import AppContext from "../../context/AppContext";
-import { dataMentors } from "../../constants/dataMentors";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
 export default function MentorCard({ mentor, style }) {
   const styleMentorCard = [styles.container, style];
   const { t } = useTranslation("global");
-  const { selectedMentor, setSelectedMentor } = useContext(AppContext);
+  const { setSelectedMentor } = useContext(AppContext);
   const navigation = useNavigation();
 
   const handleSelect = () => {
@@ -31,7 +30,11 @@ export default function MentorCard({ mentor, style }) {
         <TextStyled color={"white"}>
           {mentor.shortDescription.slice(0, 80)}...
         </TextStyled>
-        <Button secondary title={t("mentorList.select")} onPress={handleSelect} />
+        <Button
+          secondary
+          title={t("mentorList.select")}
+          onPress={handleSelect}
+        />
       </View>
     </View>
   );
