@@ -7,6 +7,7 @@ import Feather from "react-native-vector-icons/Feather";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import Icon from "react-native-vector-icons/AntDesign";
 
 function ChangeMentor() {
   const { t } = useTranslation("global");
@@ -42,7 +43,7 @@ function ChangeMentor() {
           ></Image>
         </View>
       </View>
-      <View>
+      <View style={{ gap: 2 }}>
         <TextStyled
           color={"white"}
           fontWeight={"bold"}
@@ -55,7 +56,14 @@ function ChangeMentor() {
           [ {t(`mentors.${JSON.parse(selectedMentor).id}.specialization`)} ]
         </TextStyled>
       </View>
-      <Button primary title={t("home.chating")} onPress={handleChat}></Button>
+      <Button
+        primary
+        title={t("home.chating")}
+        style={{ gap: 8 }}
+        onPress={handleChat}
+      >
+        <Icon name="message1" size={20} color="black" />
+      </Button>
     </View>
   );
 }
