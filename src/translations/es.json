@@ -1,6 +1,6 @@
 {
   "navbar": {
-    "tokenShop": "Consigue más tokens! :D"
+    "tokenShop": "¿Necesitas más Brain Coins?"
   },
   "home": {
     "yourMentorIs": "Tu mentor es...",
@@ -14,6 +14,13 @@
     "online": "En línea",
     "you": "Tú",
     "writing": "Escribiendo..."
+  },
+  "modalReward": {
+    "tusBrainCoins": "Tus brain coins",
+    "watchAd": "Mira un anuncio",
+    "brainCoins": "Brain Coins",
+    "get": "obtener",
+    "anouncementAds": "Reamente nos gustaría evitar usar anuncios pero no podemos permitirnoslo por los costos de la app, estamos buscando mejoresformas de financiarnos. [RECOMENDACIÓN: Guarda puntos por que pronto podrás desbloquear nuevas funcionalidades usandolos ]"
   },
   "mentors": {
     "1": {
