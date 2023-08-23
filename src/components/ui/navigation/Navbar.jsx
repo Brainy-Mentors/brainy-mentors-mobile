@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet,TouchableOpacity, View } from "react-native";
 import TextStyled from "../common/TextStyled";
-import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
 import ChangeLenguage from "./ChangeLenguage";
 import TokensButton from "./TokensButton";
@@ -14,7 +13,7 @@ export default function Navbar() {
           BrainyMentors
         </TextStyled>
       </TouchableOpacity>
-      <View style={{ flexDirection: "row" ,gap:16, alignItems:'center'}}>
+      <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
         <TokensButton />
         <ChangeLenguage></ChangeLenguage>
       </View>
