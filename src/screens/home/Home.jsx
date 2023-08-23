@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import ScreenBase from "../ScreenBase";
 import { View } from "react-native";
 import ChangeMentor from "../../components/changeMentor/ChangeMentor";
-import AdContext from "../../context/AdContext";
 
-export default function Home({ navigation }) {
-
+export default function Home() {
   return (
-    <>
-      <ScreenBase>
-        <View style={{ gap: 32 }}>
-          <ChangeMentor />
-        </View>
-      </ScreenBase>
-    </>
+    <ScreenBase>
+      <View style={{ gap: 32 }}>
+        <ChangeMentor />
+      </View>
+    </ScreenBase>
   );
 }
