@@ -1,25 +1,27 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import TextStyled from "../common/TextStyled";
-import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
 import AppContext from "../../../context/AppContext";
 import ChangeLenguage from "./ChangeLenguage";
 import TokensButton from "./TokensButton";
+import { useTranslation } from "react-i18next";
 
 export default function NavChat() {
   const { selectedMentor } = useContext(AppContext);
+  const { t } = useTranslation("global");
 
+  const nameMentor = JSON.parse(selectedMentor).name.split(" ")[0];
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={{ flexDirection: "row", gap: 8, alignItems: "flex-end" }}
       >
         <TextStyled fontWeight={"bold"} color={"white"} fontSize={"big"}>
-          {JSON.parse(selectedMentor).name}
+          {nameMentor}
         </TextStyled>
         <TextStyled color={"primary"} fontSize={"title"}>
-          - Online
+          - {t("chat.online")}
         </TextStyled>
       </TouchableOpacity>
       <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
