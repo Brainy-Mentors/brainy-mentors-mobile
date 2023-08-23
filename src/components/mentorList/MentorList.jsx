@@ -17,7 +17,7 @@ export default function MentorsList() {
         color={"white"}
         style={{ textAlign: "center", paddingTop: 8 }}
       >
-        {t("doYouWantTalkTo")}
+        {t("mentorList.doYouWantTalkTo")}
       </TextStyled>
       <ScrollView style={styles.container}>
         {mentorsData.map((mentor, index) => (
