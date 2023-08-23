@@ -15,11 +15,17 @@ const theme = {
     extraBig: 26,
   },
   fonts: {
-    main: "System",
+    main: "Montserrat-Regular",
+    regular: "Montserrat-Regular",
+    light: "Montserrat-Light",
+    bold: "Montserrat-bold",
+    extraBold: "Montserrat-Black",
   },
   fontWeights: {
     normal: "400",
+    light: "300",
     bold: "700",
+    extraBold: "700",
   },
 };
 
