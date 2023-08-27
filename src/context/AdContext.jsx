@@ -5,9 +5,7 @@ import { TestIds } from "react-native-google-mobile-ads";
 import useRewardedInterstitialAd from "../hooks/useRewardedInterstitialAd";
 
 const AdContext = createContext();
-const adUnitId = __DEV__
-  ? TestIds.REWARDED_INTERSTITIAL
-  : "ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy";
+const adUnitId =  "ca-app-pub-1348172596313270/4372848177";
 
 export const AdProvider = ({ children }) => {
   const { loaded, showAd, loadAd } = useRewardedInterstitialAd(adUnitId);

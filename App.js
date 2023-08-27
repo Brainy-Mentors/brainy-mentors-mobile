@@ -41,10 +41,7 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    // load screen
-    return null;
-  }
+
 
   return (
     <I18nextProvider i18n={i18next}>
