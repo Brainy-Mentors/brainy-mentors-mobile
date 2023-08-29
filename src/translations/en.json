@@ -5,7 +5,7 @@
   "home": {
     "yourMentorIs": "Your mentor is...",
     "chating": "Chat"
-  }, 
+  },
   "mentorList": {
     "doYouWantTalkTo": "¿Who do you want to talk to?",
     "select": "Select"
@@ -26,32 +26,56 @@
     "1": {
       "name": "Adrian JS",
       "specialization": "Programming Mentor",
-      "shortDescription": "Learn to code like a pro with Max. Discover the secrets of coding and create your own digital wonders.",
-      "initialMessage": "Hey there! Ready to dive into the world of coding? I'm here to help you learn and master programming. Let's get started!"
+      "shortDescription": "Explore the code universe and create digital wonders.",
+      "initialMessage": "Hello! Ready to dive into the world of programming? Let's get started."
     },
     "2": {
       "name": "Tom Robbins",
       "specialization": "Personal Development Coach",
-      "shortDescription": "Join Eva on a journey of self-discovery and personal growth. Achieve your goals with her expert guidance.",
-      "initialMessage": "Welcome on board! It's time to embark on a journey of personal growth and self-improvement. Let's work together to unlock your full potential."
+      "shortDescription": "Uncover your limitless potential and achieve your goals.",
+      "initialMessage": "Welcome aboard! Let's embark on a journey of personal growth and improvement."
     },
     "3": {
       "name": "Arnold Bumstrong",
       "specialization": "Fitness Trainer",
-      "shortDescription": "Become the best version of yourself with Felix. Discover how to lead a life full of vitality and energy.",
-      "initialMessage": "Hello! Ready to kick-start your fitness journey? I'm here to guide you towards a healthier and more active lifestyle. Let's make it happen!"
+      "shortDescription": "Transform your body and lifestyle for exceptional vitality.",
+      "initialMessage": "Hello! Ready to start your fitness journey? Let's achieve it."
     },
     "4": {
       "name": "Sabella Mindflow",
       "specialization": "Psychology Expert",
-      "shortDescription": "Navigate your mind with Sofia's guidance. Overcome challenges and cultivate a positive and resilient mindset.",
-      "initialMessage": "Greetings! Exploring the realm of psychology and mental well-being? I'm here to provide insights and strategies for a happier mind. Let's start the journey!"
+      "shortDescription": "Cultivate a resilient mindset and discover your inner potential.",
+      "initialMessage": "Greetings! Exploring the world of psychology and mental well-being."
     },
     "5": {
       "name": "Mario Luine",
       "specialization": "Relationship and Seduction Guru",
-      "shortDescription": "Learn the art of relationships with Gabo. Discover how to build authentic connections and succeed in love.",
-      "initialMessage": "Hello there! Ready to delve into the world of relationships and connection? I'm here to share tips and advice on building meaningful relationships. Let's connect!"
+      "shortDescription": "Build meaningful relationships and master the art of human connection.",
+      "initialMessage": "Hello! Ready to delve into the world of relationships and connections."
+    },
+    "6": {
+      "name": "Matteo Navarro",
+      "specialization": "Entrepreneurship Mentor",
+      "shortDescription": "Embark on entrepreneurship with confidence and bring your business ideas to life.",
+      "initialMessage": "Hello! Ready to successfully start your entrepreneurial journey? I'm here to guide you every step of the way."
+    },
+    "7": {
+      "name": "Maya Castillo",
+      "specialization": "Communication and Public Speaking Expert",
+      "shortDescription": "Master the art of impactful communication and confident public speaking.",
+      "initialMessage": "Hello! Want to enhance your communication and public speaking skills? I'm here to help."
+    },
+    "8": {
+      "name": "Isla Morales",
+      "specialization": "Influencer",
+      "shortDescription": "Build an influential brand and authentically connect with audiences.",
+      "initialMessage": "Hello! Ready to stand out on social media and build a strong digital presence."
+    },
+    "9": {
+      "name": "Nico Cortez",
+      "specialization": "Finance and Entrepreneurship Expert",
+      "shortDescription": "Master finances and create a successful and secure financial future.",
+      "initialMessage": "Greetings! Exploring the world of finance and entrepreneurship. I'm here to guide you towards financial independence."
     }
   }
 }
