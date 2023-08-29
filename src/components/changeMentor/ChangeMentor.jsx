@@ -8,6 +8,8 @@ import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/AntDesign";
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 function ChangeMentor() {
   const { t } = useTranslation("global");
@@ -36,12 +38,17 @@ function ChangeMentor() {
         <TouchableOpacity style={styles.changeButton} onPress={handleChange}>
           <Feather name="repeat" style={styles.icon} />
         </TouchableOpacity>
-        <View style={styles.containerMentor}>
+        <LinearGradient
+          colors={[JSON.parse(selectedMentor).gradient[0], JSON.parse(selectedMentor).gradient[1]]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.containerMentor}
+        >
           <Image
             style={styles?.mentorImage}
             source={JSON.parse(selectedMentor)?.imageUrl}
           ></Image>
-        </View>
+        </LinearGradient>
       </View>
       <View style={{ gap: 2 }}>
         <TextStyled
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     position: "relative",
   },
-  mentorImage: { width: 280, height: 330, transform: [{ translateY: 20 }] },
+  mentorImage: { width: 280, height: 330, transform: [{ translateY: 25 }] },
   changeButton: {
     width: 40,
     height: 40,
