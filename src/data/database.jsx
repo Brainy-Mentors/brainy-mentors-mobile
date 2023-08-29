@@ -11,8 +11,6 @@ const setupDatabase = () => {
 };
 
 const insertMessage = (mentorId, text, isCurrentUser, callback) => {
-  console.log(mentorId, text, isCurrentUser, "addmessage insert!");
-
   db.transaction(tx => {
     tx.executeSql(
       'INSERT INTO messages (mentorId, text, isCurrentUser) VALUES (?, ?, ?)',
