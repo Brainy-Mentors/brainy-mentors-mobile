@@ -1,20 +1,27 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import TextStyled from "../common/TextStyled";
-import Feather from "react-native-vector-icons/Feather";
 import theme from "../../../theme";
+import ChangeLenguage from "./ChangeLenguage";
+import TokensButton from "./TokensButton";
 
 export default function Navbar() {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <TextStyled fontWeight={"bold"} color={"white"} fontSize={"big"}>
-          BrainyMentors
+        <TextStyled
+          fontWeight={"bold"}
+          color={"white"}
+          style={{ fontStyle: "italic" }}
+          fontSize={"big"}
+        >
+          Brainy Mentors
         </TextStyled>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Feather name="menu" style={styles.icon} />
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+        <TokensButton />
+        <ChangeLenguage />
+      </View>
     </View>
   );
 }

@@ -6,8 +6,11 @@ import theme from "../../theme";
 import Feather from "react-native-vector-icons/Feather";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import Icon from "react-native-vector-icons/AntDesign";
 
 function ChangeMentor() {
+  const { t } = useTranslation("global");
   const { selectedMentor } = useContext(AppContext);
   const navigation = useNavigation();
 
@@ -16,7 +19,7 @@ function ChangeMentor() {
   };
 
   const handleChat = () => {
-    navigation.navigate("chat", {mentor: selectedMentor });
+    navigation.navigate("chat", { mentor: JSON.parse(selectedMentor) });
   };
 
   return (
@@ -27,7 +30,7 @@ function ChangeMentor() {
         fontSize={"extrabig"}
         style={{ textAlign: "center" }}
       >
-        Tu mentor es...
+        {t("home.yourMentorIs")}
       </TextStyled>
       <View>
         <TouchableOpacity style={styles.changeButton} onPress={handleChange}>
@@ -36,24 +39,31 @@ function ChangeMentor() {
         <View style={styles.containerMentor}>
           <Image
             style={styles?.mentorImage}
-            source={selectedMentor?.imageUrl}
+            source={JSON.parse(selectedMentor)?.imageUrl}
           ></Image>
         </View>
       </View>
-      <View>
+      <View style={{ gap: 2 }}>
         <TextStyled
           color={"white"}
           fontWeight={"bold"}
           fontSize={"extrabig"}
           style={{ textAlign: "center" }}
         >
-          {selectedMentor.name}
+          {JSON.parse(selectedMentor).name}
         </TextStyled>
         <TextStyled style={{ textAlign: "center" }}>
-          [ {selectedMentor.specialization} ]
+          [ {t(`mentors.${JSON.parse(selectedMentor).id}.specialization`)} ]
         </TextStyled>
       </View>
-      <Button primary title={"Chatear"} onPress={handleChat}></Button>
+      <Button
+        primary
+        title={t("home.chating")}
+        style={{ gap: 8 }}
+        onPress={handleChat}
+      >
+        <Icon name="message1" size={20} color="black" />
+      </Button>
     </View>
   );
 }
@@ -67,10 +77,11 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.white,
     borderWidth: 1,
     justifyContent: "flex-end",
+    alignItems: "center",
     overflow: "hidden",
     position: "relative",
   },
-  mentorImage: { width: 250, height: 255 },
+  mentorImage: { width: 280, height: 330, transform: [{ translateY: 20 }] },
   changeButton: {
     width: 40,
     height: 40,
