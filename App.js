@@ -4,6 +4,8 @@ import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import en from "./src/translations/en.json";
 import es from "./src/translations/es.json";
+import { useEffect } from "react";
+import { setupDatabase } from "./src/data/database";
 
 export const languageSrc = {
   en: { global: en },
@@ -18,6 +20,10 @@ i18next.init({
 });
 
 export default function App() {
+  useEffect(() => {
+    setupDatabase();
+  }, []);
+
   return (
     <I18nextProvider i18n={i18next}>
       <AppProvider>

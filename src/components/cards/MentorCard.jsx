@@ -6,6 +6,7 @@ import Button from "../ui/common/Button";
 import AppContext from "../../context/AppContext";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function MentorCard({ mentor, style }) {
   const styleMentorCard = [styles.container, style];
@@ -20,15 +21,20 @@ export default function MentorCard({ mentor, style }) {
   };
   return (
     <View style={styleMentorCard}>
-      <View style={styles.containerImage}>
+      <LinearGradient
+        colors={[mentor.gradient[0], mentor.gradient[1]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.containerImage}
+      >
         <Image style={styles.image} source={mentor.imageUrl}></Image>
-      </View>
+      </LinearGradient>
       <View style={styles.containerDetails}>
         <TextStyled fontWeight={"bold"} fontSize={"title"}>
           {mentor.name} | {mentor.specialization}
         </TextStyled>
         <TextStyled color={"white"}>
-          {mentor.shortDescription.slice(0, 80)}...
+          {mentor.shortDescription.slice(0, 80)}
         </TextStyled>
         <Button
           secondary
