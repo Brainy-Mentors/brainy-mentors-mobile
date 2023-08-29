@@ -9,6 +9,7 @@ import Profile from "../screens/profile/Profile";
 import SelectMentor from "../screens/selectMentor/SelectMentor";
 import theme from "../theme";
 import Chat from "../screens/chat/Chat";
+import GetTokens from "../screens/getTokens/GetTokens";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ export default function MainStack() {
         <Stack.Screen name="home" component={Home} />
         <Stack.Screen name="select-mentor" component={SelectMentor} />
         <Stack.Screen name="chat" component={Chat} />
+        <Stack.Screen name="getTokens" component={GetTokens} />
         <Stack.Screen name="profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>

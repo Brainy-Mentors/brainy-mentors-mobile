@@ -4,15 +4,19 @@ import theme from "../../../theme";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import TextStyled from "../common/TextStyled";
 import AppContext from "../../../context/AppContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function TokensButton() {
-  const { tokensCount, setIsOpenModalReward } = useContext(AppContext);
+  const { tokensCount  } = useContext(AppContext);
+  const navigation = useNavigation();
+
 
   const handlePress = () => {
-    setIsOpenModalReward(true);
+    navigation.navigate("getTokens");
+
   };
   return (
-    <TouchableOpacity style={styles.container} onPressIn={handlePress}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <TextStyled color={"white"} style={{ paddingHorizontal: 8 }}>
         {tokensCount && tokensCount}
       </TextStyled>

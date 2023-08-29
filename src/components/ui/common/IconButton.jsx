@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import theme from "../../../theme";
 
 export default function IconButton({
   title,
   children,
-  styled,
+  style,
   onPress,
   filled,
   unfilled,
@@ -15,7 +15,7 @@ export default function IconButton({
     styles.baseBtn,
     filled && styles.filled,
     unfilled && styles.unfilled,
-    styled,
+    style,
   ];
 
   return (
@@ -27,8 +27,7 @@ export default function IconButton({
 
 const styles = StyleSheet.create({
   baseBtn: {
-    width: 40,
-    height: 40,
+    padding: 8,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -36,12 +35,12 @@ const styles = StyleSheet.create({
   },
   filled: {
     backgroundColor: theme.colors.white,
-    borderWidth: 2,
+    borderWidth: 1,
     color: theme.colors.black,
   },
   unfilled: {
     borderColor: theme.colors.white,
-    borderWidth: 2,
+    borderWidth: 1,
     color: theme.colors.white,
   },
 });

@@ -1,114 +1,165 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import ScreenBase from "../ScreenBase";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import NavChat from "../../components/ui/navigation/NavChat";
 import theme from "../../theme";
-import TextStyled from "../../components/ui/common/TextStyled";
 import Button from "../../components/ui/common/Button";
 import chatService from "../../services/chat/ChatService";
-
-const Message = ({
-  text,
-  sederName,
-  isCurrentUser,
-  timestamp,
-  style,
-  ...rest
-}) => {
-  const messageStyle = [
-    styles.containerMessage,
-    isCurrentUser ? styles.currentUser : styles.otherUser,
-    style,
-  ];
-  return (
-    <View style={messageStyle}>
-      <TextStyled color={"black"} fontWeight={"bold"}>
-        {isCurrentUser ? "Me" : sederName}
-      </TextStyled>
-      <TextStyled color={"black"}>{text && text}</TextStyled>
-    </View>
-  );
-};
-
-const allMessages = [
-  {
-    id: 1,
-    text: "Hola este es un mensaje de prueba",
-    sederName: "Lucas",
-    isCurrentUser: true,
-  },
-  {
-    id: 2,
-    text: "Hola este es un mensaje de prueba",
-    sederName: "Lucas",
-    isCurrentUser: false,
-  },
-  {
-    id: 3,
-    text: "Hola este es un mensaje de bienvenida asdkfljsfadkldjfasdkfljasdfklajsfkljfsa fasdjkfl  asdfkja sksljdf fadskl",
-    sederName: "Lucas",
-    isCurrentUser: true,
-  },
-];
+import Message from "../../components/ui/message/Message";
+import { insertMessage, getAllMessagesByMentorId } from "../../data/database";
+import AppContext from "../../context/AppContext";
+import { useTranslation } from "react-i18next";
+import TextStyled from "../../components/ui/common/TextStyled";
 
 export default function Chat() {
-  const route = useRoute();
-  const { params } = route;
-  const [conversation, setconversation] = useState([]);
+  const { t } = useTranslation("global");
+  const { params } = useRoute();
+  const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+  const navigation = useNavigation();
+
+
+  const [mentorID, setmentorID] = useState(params.mentor.id);
+  const { lang, tokensCount, setTokensCount } = useContext(AppContext);
+
+  const [isTyping, setIsTyping] = useState(false);
+  const [canSendMessage, setCanSendMessage] = useState(true);
 
   const handleSubmit = () => {
-    let newConversation = conversation;
-    let objectMessage = {
-      sederName: "Gary",
-      text: inputText,
-      isCurrentUser: true,
-    };
-    newConversation.push(objectMessage);
-    setconversation(newConversation);
-    console.log(conversation);
-    handleMessage(inputText);
-    setInputText("");
+    let textToSend = inputText;
+
+    if (canSendMessage === true && inputText.length > 0) {
+      let nTokens = parseInt(tokensCount) - 1;
+      setTokensCount(nTokens.toString());
+      setInputText("");
+      addMessage(mentorID, textToSend, true);
+      handleChat(textToSend);
+      setIsTyping(true);
+    }
+    if (canSendMessage === false) {
+      navigation.navigate("getTokens");
+    }
   };
 
-  async function handleMessage(message) {
-    const { data } = await chatService.chat(message);
-    let newMessage = {
-      sederName: params.mentor.name,
-      text: data.choices[0].message.content,
-      isCurrentUser: false,
-    };
-    setconversation((prevConversation) => [...prevConversation, newMessage]);
+  useEffect(() => {
+    refreshMessages(mentorID);
+    haveTokens();
+  }, []);
+
+  const haveTokens = () => {
+    parseInt(tokensCount) > 0
+      ? setCanSendMessage(true)
+      : setCanSendMessage(false);
+  };
+
+  const refreshMessages = (mentorId) => {
+    getAllMessagesByMentorId(mentorId, (data) => setMessages(data));
+    haveTokens();
+    scrollToBottom();
+  };
+
+  const addMessage = (mentorId, text, isCurrentUser) => {
+    insertMessage(mentorId, text, isCurrentUser, () => {
+      refreshMessages(mentorID);
+    });
+  };
+
+  const contextMessages = () => {
+    refreshMessages(mentorID);
+    let lastMessages = messages?.slice(-3).map((message) => {
+      return {
+        role: message?.isCurrentUser ? "user" : "system",
+        content: message?.text,
+      };
+    });
+    return lastMessages;
+  };
+
+  const handleInputChange = (text) => {
+    haveTokens();
+    if (text.length < 250) {
+      setInputText(text);
+    }
+  };
+
+  async function handleChat(message) {
+    const conversationContext = contextMessages();
+    const { data } = await chatService.chat(
+      mentorID,
+      message,
+      lang,
+      conversationContext
+    );
+    addMessage(mentorID, data.choices[0].message.content, false);
+    setIsTyping(false);
+    refreshMessages(mentorID);
+    haveTokens();
   }
 
-  // console.log(params.mentor);
+  const scrollViewRef = useRef(null);
+
+  const scrollToBottom = () => {
+    scrollViewRef.current.scrollToEnd({ animated: true });
+  };
+
   return (
     <>
       <ScreenBase complete>
         <NavChat />
-        <ScrollView style={styles.containerChat}>
-          {conversation.map((message, index) => {
-            return (
+        <ScrollView style={styles.containerChat} ref={scrollViewRef}>
+          <Message
+            isCurrentUser={false}
+            text={t(`mentors.${mentorID}.initialMessage`)}
+            sederName={params?.mentor?.name}
+          />
+          {messages.map((message, index) => {
+            return message.mentorId == params?.mentor?.id ? (
               <View styles={{ width: "100%" }} key={index}>
                 <Message
-                  isCurrentUser={message.isCurrentUser}
+                  isCurrentUser={message?.isCurrentUser}
                   text={message.text}
-                  sederName={message.sederName}
+                  sederName={params?.mentor?.name}
                 />
               </View>
-            );
+            ) : null;
           })}
+          {isTyping && (
+            <Message
+              isCurrentUser={false}
+              text={t(`chat.writing`)}
+              sederName={params?.mentor?.name}
+            />
+          )}
         </ScrollView>
       </ScreenBase>
       <View style={styles.bottomContainer}>
-        <TextInput
-          onChangeText={(text) => setInputText(text)}
-          placeholder="Tu mensaje..."
-          style={styles.textInput}
-          value={inputText}
-        ></TextInput>
-        <Button title={"Enviar"} secondary onPress={handleSubmit} />
+        <View style={{ flex: 1, position: "relative" }}>
+          <TextInput
+            onChangeText={(text) => handleInputChange(text)}
+            placeholder="Tu mensaje..."
+            style={styles.textInput}
+            value={inputText}
+          />
+          <TextStyled
+            color={"black"}
+            style={{
+              position: "absolute",
+              right: 10,
+              bottom: 2,
+              opacity: 0.5,
+              fontSize: 10,
+            }}
+          >
+            {inputText.length}/250
+          </TextStyled>
+        </View>
+        <Button
+          title={"Enviar"}
+          secondary
+          onPress={handleSubmit}
+          inactive={!canSendMessage}
+        />
       </View>
     </>
   );
@@ -116,7 +167,7 @@ export default function Chat() {
 
 const styles = StyleSheet.create({
   containerChat: {
-    marginBottom:140
+    marginBottom: 150,
   },
   bottomContainer: {
     backgroundColor: theme.colors.backgroundBase,
@@ -133,26 +184,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 8,
     flex: 1,
-  },
-
-  containerMessage: {
-    maxWidth: "80%",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 16,
-    borderColor: theme.colors.black,
-    borderWidth: 1,
-    gap: 4,
-    marginVertical: 4,
-  },
-  currentUser: {
-    backgroundColor: theme.colors.primary,
-    borderBottomRightRadius: 0,
-    alignSelf: "flex-end",
-  },
-  otherUser: {
-    backgroundColor: theme.colors.white,
-    borderBottomLeftRadius: 0,
-    alignSelf: "flex-start",
   },
 });
