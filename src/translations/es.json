@@ -1,0 +1,57 @@
+{
+  "navbar": {
+    "tokenShop": "¿Necesitas más Brain Coins?"
+  },
+  "home": {
+    "yourMentorIs": "Tu mentor es...",
+    "chating": "Chat"
+  }, 
+  "mentorList": {
+    "doYouWantTalkTo": "¿Con quién deseas hablar?",
+    "select": "Seleccionar"
+  },
+  "chat": {
+    "online": "En línea",
+    "you": "Tú",
+    "writing": "Escribiendo..."
+  },
+  "modalReward": {
+    "tusBrainCoins": "Tus brain coins",
+    "watchAd": "Mira un anuncio",
+    "brainCoins": "Brain Coins",
+    "get": "obtener",
+    "anouncementAds": "Reamente nos gustaría evitar usar anuncios pero no podemos permitirnoslo por los costos de la app, estamos buscando mejoresformas de financiarnos. [RECOMENDACIÓN: Guarda puntos por que pronto podrás desbloquear nuevas funcionalidades usandolos ]"
+  },
+  "mentors": {
+    "1": {
+      "name": "Adrian JS",
+      "specialization": "Mentor de Programación",
+      "shortDescription": "Aprende a programar como un profesional con Max. Descubre los secretos del código y crea tus propias maravillas digitales.",
+      "initialMessage": "¡Hola! ¿Listo para sumergirte en el mundo de la programación? Estoy aquí para ayudarte a aprender y dominar la programación. ¡Comencemos!"
+    },
+    "2": {
+      "name": "Tom Robbins",
+      "specialization": "Coach de Desarrollo Personal",
+      "shortDescription": "Únete a Eva en un viaje de autodescubrimiento y crecimiento personal. Alcanza tus objetivos con su guía experta.",
+      "initialMessage": "¡Bienvenido a bordo! Es hora de embarcarse en un viaje de crecimiento personal y mejora. Trabajemos juntos para desbloquear tu máximo potencial."
+    },
+    "3": {
+      "name": "Arnold Bumstrong",
+      "specialization": "Entrenador de Fitness",
+      "shortDescription": "Conviértete en la mejor versión de ti mismo con Felix. Descubre cómo alcanzar una vida llena de vitalidad y energía.",
+      "initialMessage": "¡Hola! ¿Listo para comenzar tu viaje de fitness? Estoy aquí para guiarte hacia un estilo de vida más saludable y activo. ¡Vamos a lograrlo!"
+    },
+    "4": {
+      "name": "Sabella Mindflow",
+      "specialization": "Experta en Psicología",
+      "shortDescription": "Navega por tu mente con la guía de Sofía. Supera desafíos y cultiva una mentalidad positiva y resiliente.",
+      "initialMessage": "¡Saludos! ¿Explorando el mundo de la psicología y el bienestar mental? Estoy aquí para brindarte ideas y estrategias para una mente más feliz. ¡Comencemos el viaje!"
+    },
+    "5": {
+      "name": "Mario Luine",
+      "specialization": "Gurú de Relaciones y Seducción",
+      "shortDescription": "Aprende el arte de las relaciones con Gabo. Descubre cómo construir conexiones auténticas y tener éxito en el amor.",
+      "initialMessage": "¡Hola! ¿Listo para adentrarte en el mundo de las relaciones y las conexiones? Estoy aquí para compartir consejos y consejos sobre cómo construir relaciones significativas. ¡Conectemos!"
+    }
+  }
+}
