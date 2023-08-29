@@ -3,7 +3,7 @@ import ScreenBase from "../ScreenBase";
 import { View } from "react-native";
 import ChangeMentor from "../../components/changeMentor/ChangeMentor";
 
-export default function Home({ navigation }) {
+export default function Home() {
   return (
     <ScreenBase>
       <View style={{ gap: 32 }}>
