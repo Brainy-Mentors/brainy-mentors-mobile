@@ -1,7 +1,7 @@
 import axios from "axios";
-// import { OPENAI_API_KEY } from "@env";
-// const openaiApiKey = EAS.builds.android.release.secrets.OPENAI_API_KEY;
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+import {OPENAI_API_KEY} from '@env'
+// const OPENAI_API_KEY = EAS.builds.android.release.secrets.OPENAI_API_KEY;
+// const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 const urlBaseOpenAI = "https://api.openai.com/v1/chat/completions";
 
