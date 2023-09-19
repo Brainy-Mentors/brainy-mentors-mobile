@@ -6,6 +6,7 @@ import en from "./src/translations/en.json";
 import es from "./src/translations/es.json";
 import { useEffect } from "react";
 import { setupDatabase } from "./src/data/database";
+import "expo-dev-client"
 
 export const languageSrc = {
   en: { global: en },

@@ -10,18 +10,28 @@ export default function Button({
   onPress,
   primary,
   secondary,
+  inactive,
   ...restOfProps
 }) {
   const buttonStyles = [
     styles.baseBtn,
     primary && styles.primary,
     secondary && styles.secondary,
+    inactive && styles.disabledBtn,
     style,
   ];
 
   return (
-    <TouchableOpacity style={buttonStyles} onPress={onPress} {...restOfProps}>
-      <TextStyled fontWeight={"bold"} fontSize={primary ? "big" : "title"} style={{ color: "black" }}>
+    <TouchableOpacity
+      style={buttonStyles}
+      onPress={onPress}
+      {...restOfProps}
+    >
+      <TextStyled
+        fontWeight={"bold"}
+        fontSize={primary ? "big" : "title"}
+        style={{ color: "black" }}
+      >
         {title}
       </TextStyled>
       {children}
@@ -46,8 +56,11 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   secondary: {
-    paddingVertical: 4,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     backgroundColor: theme.colors.white,
+  },
+  disabledBtn: {
+    opacity: 0.4,
   },
 });

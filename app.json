@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "brainy-mentors-mobile",
+    "name": "Brainy Mentors",
     "slug": "brainy-mentors-mobile",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,13 +18,24 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#2A2A2A"
-      }
+      },
+      "package": "com.garyhl321.brainymentorsmobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "94f5241b-b2c1-4989-a3f1-890e8ef0967b"
+      }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1348172596313270~8907544467"
   }
 }
+w

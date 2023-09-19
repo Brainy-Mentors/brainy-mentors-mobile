@@ -1,17 +1,22 @@
 import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import theme from "../../../theme";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import TextStyled from "../common/TextStyled";
 import AppContext from "../../../context/AppContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function TokensButton() {
-  const { tokensCount } = useContext(AppContext);
+  const { tokensCount  } = useContext(AppContext);
+  const navigation = useNavigation();
 
-  const handlePress = () => {};
 
+  const handlePress = () => {
+    navigation.navigate("getTokens");
+console.log()
+  };
   return (
-    <TouchableOpacity style={styles.container} onPressIn={handlePress}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <TextStyled color={"white"} style={{ paddingHorizontal: 8 }}>
         {tokensCount && tokensCount}
       </TextStyled>
